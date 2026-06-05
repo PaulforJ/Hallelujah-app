@@ -567,7 +567,7 @@ function AuthScreen({onAuth}) {
         if(!username.trim()){setError("Username is required.");setLoading(false);return;}
         const d = await sb.signUp(email, password, username);
         if(d.error){setError(d.error.message);return;}
-        setMode("login"); setError("✅ Account created! Check your email to verify, then sign in.");
+        const s = await sb.signIn(email, password); if(!s.error) onAuth(s.user, s.access_token);
       } else {
         const d = await sb.signIn(email, password);
         if(d.error){setError(d.error.message);return;}
